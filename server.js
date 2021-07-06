@@ -8,11 +8,11 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 //Have express parse JSON and string data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: true }));
 
 //Give the server the path to the routes 
-app.use(routes);
+//app.use(routes);
 
 //Turn on the connection to db and to the server 
 //force: true to reset the database and clear all values, updating any new relationships 
