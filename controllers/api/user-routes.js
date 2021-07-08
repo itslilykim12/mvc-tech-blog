@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
         res.status(500).json(err);
     });
 });
-//GET a single user by id - /api/user/:id
+//GET a single user by id - /api/users/:id
 router.get('/:id', (req, res) => {
     User.findOne({
         attributes: {exclude: ['password']},
