@@ -1,6 +1,8 @@
 const router = require('express').Router();
 //User, Post and Comment Models
 const { User, Post, Comment } = require('../../models');
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize');
 
 //Routes
 //GET all users - /api/users
@@ -58,6 +60,11 @@ router.post('/', (req, res) => {
         password: req.body.password
     })
     .then((dbUserData) => {
+        req.session.save(() => {
+            req.session.user_id = dbUserData.id;
+            req.session.username = dbUserData.username;
+            req.session.loggedIn = true;
+        })
         res.status(200).json(dbUserData);
     })
     .catch((err) => {
@@ -84,7 +91,13 @@ router.post('/login', (req, res) => {
             res.status(400).json({ message: "Incorrect Password!" });
             return;
         }
+        req.session(() => {
+            req.session.user_id = dbUserData.id;
+            req.session.username = dbUserData.username;
+            req.session.loggedIn = true;
+        
         res.json({ user:dbUserData, message: "You are now logged in!" });
+        });
     });
 });
 //POST logout and existing user - /api/user/logout

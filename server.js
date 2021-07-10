@@ -12,9 +12,24 @@ const routes = require('./controllers/');
 const sequelize = require('./config/connection');
 //handlebars template engine for front-end 
 const exphbs = require('express-handlebars');
+//express sesssion to handle session cookies
+const session = require('express-session');
+//Sequelize Store to save the session so that the user can remain logged in 
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 //initialize handlebars for the html template
 const hbs = exphbs.create({});
+
+//initialize sessions
+const sess = {
+    secret: 'Super secret secret',
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+        db: sequelize
+    })
+};
 
 //initialize the server 
 const app = express();
@@ -30,6 +45,9 @@ app.set('view engine', 'handlebars');
 //Have express parse JSON and string data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//App to use express session
+app.use(session(sess));
 
 //Give the server the path to the routes 
 app.use(routes);
