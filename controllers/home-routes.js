@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
             'id',
             'post_text',
             'title',
+            'created_at',
         ],
         order: [['created_at', 'DESC']],
         include: [

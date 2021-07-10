@@ -2,7 +2,7 @@ const router = require('express').Router();
 //User, Post and Comment Models
 const { User, Post, Comment } = require('../../models');
 const session = require('express-session');
-const SequelizeStore = require('connect-session-sequelize');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 //Routes
 //GET all users - /api/users
