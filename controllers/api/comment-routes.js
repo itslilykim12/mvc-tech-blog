@@ -14,10 +14,11 @@ router.get('/', (req, res) => {
 });
 //POST create a new comment - /api/comments 
 router.post('/', (req, res) => {
+    if (req.session) {
     Comment.create({
         comment_text: req.body.comment_text,
         post_id: req.body.post_id,
-        user_id: req.user_id
+        user_id: req.session.user_id
     })
     .then((dbCommentData) => {
         res.status(200).json(dbCommentData);
@@ -26,6 +27,7 @@ router.post('/', (req, res) => {
         console.log(err);
         res.status(500).json(err);
     });
+    }
 });
 //DELETE a comment -/api/comments/:id
 router.delete('/:id', (req, res) => {
