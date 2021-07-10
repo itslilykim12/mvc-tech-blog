@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../models');
-const { restore } = require('../models/User');
+const sequelize = require('../config/connection');
 
 router.get('/', (req, res) => {
     Post.findAll({
@@ -69,7 +69,7 @@ router.get('/post/:id', (req, res) => {
             return;
         }
         const post = dbPostData.get({ plain: true });
-        res.render('single-psot', {
+        res.render('single-post', {
             post,
             loggedIn: req.session.loggedIn
         });
