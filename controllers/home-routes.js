@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { Router } = require('express');
 const { User, Post, Comment } = require('../models');
 
 
@@ -90,7 +89,7 @@ router.get('/login', (req, res) => {
         res.redirect('/');
         return;
     }
-    res.render('login');
+    res.status(200).render('login');
 });
 //Show sign-up page 
 router.get('/signup', (req, res) => {

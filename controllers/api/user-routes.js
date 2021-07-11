@@ -1,19 +1,18 @@
 const router = require('express').Router();
-//User, Post and Comment Models
 const { User, Post, Comment } = require('../../models');
+const session = require('express-session');
 const withAuth = require('../../utils/auth');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 
 //Routes
 //GET all users - /api/users
-router.get('/', (_req, res) => {
-    User.findAll({
-        attributes: {exclude: ['password']}
-    })
+router.get('/', (req, res) => {
+    User.findAll({})
     .then((dbUserData) => {
         res.status(200).json(dbUserData);
     })
-    .catch((err) => {
+    .catch((err)=> { 
         console.log(err);
         res.status(500).json(err);
     });
@@ -99,6 +98,10 @@ router.post('/login',  (req, res) => {
         
         res.json({ user:dbUserData, message: "You are now logged in!" });
         });
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
     });
 });
 //POST logout and existing user - /api/user/logout

@@ -6,7 +6,7 @@
     height: 100%;
     padding: 0;
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     color: #333;
   }
   
@@ -39,6 +39,7 @@
   .post-list {
     margin: 0;
     padding: 0;
+    list-style-type:none;
   }
   
   textarea, input {
@@ -131,10 +132,15 @@
     margin-bottom: 2%;
     line-height: 150%;
   }
+  .post .title {
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #7d7d7d;
+  }
   
   .post .title span {
     font-style: italic;
-    font-size: 90%;
+    font-size: 0.8rem;
     color: #7d7d7d;
   }
   
@@ -154,7 +160,7 @@
   }
   
   .comment:nth-child(odd) {
-    background-color: #fff5eb;
+    background-color: white;
   }
   
   .comment .meta {
@@ -164,7 +170,7 @@
   }
   
   .new-post-form input, textarea {
-    width: 300px;
+    width: 80%;
   }
   
   .edit-post-form {
