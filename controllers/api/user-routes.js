@@ -1,13 +1,12 @@
 const router = require('express').Router();
 //User, Post and Comment Models
 const { User, Post, Comment } = require('../../models');
-const session = require('express-session');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const withAuth = require('../../utils/auth');
+
 
 //Routes
 //GET all users - /api/users
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
     User.findAll({
         attributes: {exclude: ['password']}
     })
@@ -65,8 +64,9 @@ router.post('/', (req, res) => {
             req.session.user_id = dbUserData.id;
             req.session.username = dbUserData.username;
             req.session.loggedIn = true;
-        })
+        
         res.status(200).json(dbUserData);
+        });
     })
     .catch((err) => {
         console.log(err);
@@ -74,7 +74,7 @@ router.post('/', (req, res) => {
     });
 });
 //POST login route for a user - /api/users/login
-router.post('/login', (req, res) => {
+router.post('/login',  (req, res) => {
     User.findOne({
         where: {
             email: req.body.email
@@ -120,7 +120,7 @@ router.put('/:id', withAuth, (req, res) => {
         }
     })
     .then((dbUserData) => {
-        if(!dbUserData) {
+        if(!dbUserData[0]) {
             res.status(404).json({ message: "No user found with this id." });
             return;
         }

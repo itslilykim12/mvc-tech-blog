@@ -14,7 +14,7 @@ router.use('/', homeRoutes);
 //define the path for the dashboard 
 router.use('/dashboard', dashboardRoutes);
 
-router.use((req, res) => {
+router.use((_req, res) => {
     res.status(404).end();
 });
 

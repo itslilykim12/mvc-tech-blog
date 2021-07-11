@@ -1,6 +1,7 @@
 const router = require('express').Router();
+const { Router } = require('express');
 const { User, Post, Comment } = require('../models');
-const sequelize = require('../config/connection');
+
 
 router.get('/', (req, res) => {
     Post.findAll({
@@ -90,6 +91,14 @@ router.get('/login', (req, res) => {
         return;
     }
     res.render('login');
+});
+//Show sign-up page 
+router.get('/signup', (req, res) => {
+    if(req.session.loggedIn) {
+        res.redirect('/');
+        return;
+    }
+    res.status(200).render('signup');
 });
 
 module.exports = router;
